@@ -4,7 +4,7 @@ var mongo = require("mongodb").MongoClient;
 
 app.get("/:id", function(request, response){
   //Find id in database and send appropriate url.
-  mongo.connect("mongodb://127.0.0.1/database", function(err, db){
+  mongo.connect("mongodb://pythoncow:shrek420@ds141474.mlab.com:41474/pythoncow", function(err, db){
     if(err) throw err;
     var urls = db.collection("urls");
     urls.find({_id: parseInt(request.params.id)}).toArray(function(err, results){
@@ -19,7 +19,7 @@ app.get("/:id", function(request, response){
 
 app.get("/new/:url", function(request, response){
   //Insert url into database and send id and url back.
-  mongo.connect("mongodb://localhost:27017/database", function(err, db){
+  mongo.connect("mongodb://pythoncow:shrek420@ds141474.mlab.com:41474/pythoncow", function(err, db){
     if(err) throw err;
     var urls = db.collection("urls");
     urls.aggregate([
@@ -43,4 +43,4 @@ app.get("/new/:url", function(request, response){
   });
 });
 
-app.listen(8000);
+app.listen(process.env.PORT);
